@@ -15,6 +15,7 @@
 """
 import pandas as pd
 
+
 # pandas.DataFrame
 df = pd.DataFrame(
     [["Alice", 17], ["Bob", 24], ["Carol", 29]],
@@ -24,6 +25,17 @@ df = pd.DataFrame(
 
 # 列、pandas.Series
 df["Name"]
+
+def load_from_csv(filepath: str) -> DataFrame:
+    """_summary_
+
+    Args:
+        filepath (str): "dataset/physical_measurement.csv"
+    """
+    
+    # CSVファイルからデータを読み込み
+    return pd.read_csv(filepath)
+
 
 def test_iloc(df: DataFrame):
     """ilocを使うと、行番号・列番号を使って範囲指定ができます。
