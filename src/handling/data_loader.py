@@ -14,7 +14,7 @@
         各列の基本統計量を計算したり、棒グラフや散布図などいろいろなグラフを作成できます。
 """
 import pandas as pd
-
+from pandas import DataFrame
 
 # pandas.DataFrame
 df = pd.DataFrame(
@@ -26,15 +26,77 @@ df = pd.DataFrame(
 # 列、pandas.Series
 df["Name"]
 
+
 def load_from_csv(filepath: str) -> DataFrame:
     """_summary_
 
     Args:
         filepath (str): "dataset/physical_measurement.csv"
     """
-    
+
     # CSVファイルからデータを読み込み
     return pd.read_csv(filepath)
+
+
+def extract_head_data(num: int, df: DataFrame) -> DataFrame:
+    return df.head(num)
+
+
+def extract_tail_data(num: int, df: DataFrame) -> DataFrame:
+    return df.tail(num)
+
+
+def show_column_datatypes(df: DataFrame) -> DataFrame:
+    """DataFrame 内の dtypes を返します。
+
+        これは、各列のデータ型を持つ Series を返す。
+        結果のインデックスは元のDataFrameのカラムです。
+        型が混在している列は、オブジェクトのdtypeで格納されます。
+
+        出力例
+        Name      object
+        Height     int64
+        Weight     int64
+        dtype: object
+    """
+
+    return df.dtypes
+
+
+def show_row_column_nums(df: DataFrame) -> tuple:
+    """DataFrameの次元数を表すタプルを返します。
+        出力例
+        (10, 3)
+    """
+
+    return df.shape
+
+
+def show_cloumns(df: DataFrame) -> DataFrame:
+    """DataFrame の列ラベル。
+        出力例
+        Index(['A', 'B'], dtype='object')
+    """
+    return df.columns
+
+
+def show_basic_statistics(df: DataFrame) -> DataFrame:
+    """記述統計の作成
+        DataFrame.describe(percentiles=None, include=None, exclude=None)
+
+        出力例
+        count    3.0
+        mean     2.0
+        std      1.0
+        min      1.0
+        25%      1.5
+        50%      2.0
+        75%      2.5
+        max      3.0
+        dtype: float64
+    """
+
+    return df.describe()
 
 
 def test_iloc(df: DataFrame):
@@ -44,15 +106,15 @@ def test_iloc(df: DataFrame):
     print(df.loc[10])
     print("----")
     print(df.iloc[0])
-    
+
     print(df.loc[:, "Name"])
     print("----")
     print(df.iloc[:, 0])
-    
+
     print(df.loc[[20, 30], ["Name", "Age"]])
     print("----")
     print(df.iloc[[1, 2], [0, 1]])
-    
+
     """
         Age   Name
         30   29  Carol
@@ -65,10 +127,13 @@ def test_iloc(df: DataFrame):
     print(df.loc[[30, 20], ["Age", "Name"]])
     print("----")
     print(df.iloc[...])
-    
+
     result = df.iloc[[2, 0], [0, 1]]
+
     """
         Name	Age
         30	Carol	29
         10	Alice	17
     """
+
+    return result
