@@ -266,3 +266,41 @@ print(df_concat.shape)  # 連結後の行数・列数
 
 ## グループごとの統計量
 
+- データをグループ分けして何らかの処理を行いたい場合、groupby()が便利です。
+- df.groupby(列名).処理のように書くと、指定した列の値のグループごとに処理を行います。
+  - たとえば、df.groupby("A").mean()のように書くと、列Aの値ごとにグループ分けして、各グループごとの平均値を計算します。
+
+``` python
+import pandas as pd
+
+# データの読み込み
+df = pd.read_csv("dataset/physical_measurement_clean.csv")
+df
+
+# 列Clubのグループごとに、各列の平均値を計算
+mean_df = df.groupby("Club").mean(numeric_only=True)
+mean_df
+
+# 列Clubのグループごとに、各列の最大値を計算
+max_df = df.groupby("Club").max()
+max_df
+```
+
+## グラグの描画
+
+折れ線グラフ: plot.line()
+棒グラフ: plot.bar()
+散布図: plot.scatter()
+箱ひげ図: plot.box()
+
+- DataFrameクラスとSeriesクラスは、plot.グラフの種類()とすることでグラフを描画できます。
+  - たとえばdf.plot.scatter(x=x軸に使う列名, y=y軸に使う列名)のように書くと、散布図を描画できます。
+
+``` python
+import pandas as pd
+
+# データの読み込み
+df = pd.read_csv("dataset/physical_measurement_clean.csv")
+# x軸が列"Height", y軸が列"Weight"の散布図を描画
+df.plot.scatter(x="Height", y="Weight")
+```
